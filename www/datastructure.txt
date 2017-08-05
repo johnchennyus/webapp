@@ -1,0 +1,184 @@
+﻿list
+  list1 = [1,'2',3,'abc']
+  list1.insert(1,'ddd')
+  len = len(list1)
+  value1 = list1[0]
+  value1 = list1[2:]
+  popvalue = list1.pop()
+  list1.pop(2)  #2 is index, the third object
+  list1.remove('abc')
+  list1.append([1,2,3])
+  list1 += list2
+  maxvalue = max(list2) 
+  minvalue = min(list2) #only support same data type
+  list1.count(2)
+  list1.index('abc')
+  list1.reverse()
+  list1.sort()  
+  list1.extend(range(9))  / list1.extend(list2)
+  list1 = list('asdfasdf')   / list1= list(range(8))
+  del list2 #only support same data type
+
+dict
+  dict1 = {'key1':value1, 'key2':value2}
+  value1 = dict1['key1']
+  dict1['key2'] = newvalue
+  dict1['key3'] = value3  # add a new entry
+  dict2 = {'1':1,'2':2,'2':3} #if print dict2, then you will find that dict2 is {'1':1,'2':3}
+  del dict1['key3']
+  len(dict1)
+  str(dict1)
+  dict2.clear()
+  dict1.itmes()
+  dict1.keys()
+  dict1.values()
+  for 1 in dict1.keys():....
+  dict1.get(key)
+  dict1.setdefault(key, default=none)
+  dict1.popitem()
+  dict1.pop(key)  
+  dict1.update(dict2)
+ 
+
+
+  dict5 = dict.fromkeys(range(10))
+  默认情况下，dict迭代的是key。如果要迭代value，可以用for value in d.itervalues()，如果要同时迭代key和value，可以用for k, v in d.iteritems()
+  
+  #对于容器类型的浅拷贝 和 深拷贝
+  d1 = [[1,2],3]
+  d2 = d1           #浅拷贝，引用对象
+  d3 = copy(d1)  #浅拷贝，深拷贝父对象，子对象不拷贝，还是引用
+  import copy
+  d4 = copy.deepcopy(d1) #深拷贝所有层级的对象
+  
+  d1[1] = 0
+  print(d1,d2,d3,d4)
+  ([[1,2],0],[[1,2],0],[[1,2],3],[[1,2],3]
+  
+  d1[0][0] = 0
+  print(d1,d2,d3,d4)
+  ([[0,2],0],[[0,2],0],[[0,2],3],[[1,2],3]	
+
+
+tuple
+  t1 = (20,)
+  t2 = (23,3,'234324',[23,23])
+  t2[0:2]
+  t3 = t1 + t2 # you can't revise a element, but you can join to tuple
+  len(t3)
+  max(t3)
+  min(t3)
+  tuple(seg)
+
+set
+  s1 = {2,3,32,'234')
+  for x in s1:....
+  len(s1)
+  s1.add(100)
+  s1.update({90,80})
+  s1.remove(100)
+  s1.clear()
+  s1.pop()
+  s1.discard(100)
+  
+  for x in s1:.....
+  s1 <= s2
+  s1 | s2   / s1.union(s2)
+  s1 & s2  / s1.intersection(s2)
+  s1 - s2    / s1.difference(s2)
+  s1 ^ s2   /  s1.symmetric_difference(s2)
+  hash(s)
+     
+
+function
+  isinstance
+  def fun(a):
+    if not isinstance(a,(int,float)):
+      print('please input int or float ')
+    else:
+      print(int(a))
+
+  function can reutrn multi value, in fact , it is a tuple
+  def x():
+     return 1,[1,2,3]  
+  y = x()
+  then y[0] is 1 and y[1] is [1,2,3]
+
+  default argument
+  def fun(x, n=2)
+    i = 1
+    result = x
+    for i in range(n):
+      result = result*x
+      i += 1
+    return result
+
+   def enroll(name, gender, age = 6, city = 'beijing')
+     print(name,gender,age,city)
+   enroll('Chen','F',City = 'New York')
+  
+  Variable Python Function Parameters Lists
+  asterisk+argumentname indicate the argument is a list or tuple   
+  def dinner(*menu):
+     for i in menu:
+         print('Today we will eat'+i)
+
+     
+  two asterisks+argumentname indicate the argument is a dict   
+  def newstudent(**namelist)
+      for i in namelist:
+         print(i[0],i[1])
+   sum = lambda x,y: x+y
+   sum(10,20)
+  
+   Slice
+   both list and str can be scliced
+   list1[0:10:2]
+   str1[-10:-1]
+   
+   L[start:stop:step]
+
+   TO check a instance if iterable
+   from collections import Iterable
+   isinstance([1,2,3], Iterable)
+
+  list1 = [x*x for x in range(10) if x % 2 ==0]        #list1 = [0,4,16,36,64]
+  z = [a+b for a in x for b in y]   #x='abc' y='def' z为x和y的全排列
+
+  [s.upper() if isinstance(s,str) else s for s in L]
+
+  [isinstance(s,str) and s.lower() or s for s in L]  # niu XXXXXXXX ........
+  注意:  True and 'abc'  则返回 'abc'  如果'abc' and True 则返回True 
+  注意:  False or 'abc'  和 'abc' or False 均返回'abc'
+
+
+   def fib():
+      x=0
+      y=1      
+      while True:
+            yield y
+            x,y = y, x+y
+  generator 函数， tt =fid()   取值时可以用tt.__next__()
+
+Higher order functions
+    function as parameter
+    map()  / reduce()
+    in python3, the return of map function is a object, you need to add a list to concvert it to a list 
+    在Python 3里，reduce()函数已经被从全局名字空间里移除了，它现在被放置在fucntools模块里
+    和map()类似，filter()也接收一个函数和一个序列。和map()不同的时，filter()把传入的函数依次作用于每个元素，然后根据返回值是True还是False决定保留还是丢弃该元素。
+ 
+ 装饰器和返回函数都没有看懂，/(ㄒoㄒ)/~~    
+
+   functools.partial的作用就是，把一个函数的某些参数给固定住（也就是设置默认值），返回一个新的函数，调用这个新函数会更简单。
+    int2 = functools.partial(int, base=2)
+
+
+
+在Python中，一个.py文件就称之为一个模块（Module）
+如果不同的人编写的模块名相同怎么办？为了避免模块名冲突，Python又引入了按目录来组织模块的方法，称为包（Package）。
+
+请注意，每一个包目录下面都会有一个__init__.py的文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。__init__.py可以是空文件，也可以有Python代码，因为__init__.py本身就是一个模块，而它的模块名就是mycompany。
+
+
+
+
