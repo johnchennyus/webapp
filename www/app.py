@@ -14,20 +14,27 @@ import orm
 from coroweb import add_routes, add_static
 
 def init_jinja2(app, **kw):
+
+    # initial jinja2, The most important object is Environment, it accept a parameter of dict, you can give the : loader which indicate the templates directory and autoescape usally you should set it as true
+    # and block_start_string default is {%
     logging.info('init jinja2...')
+
+    path = kw.get('path', None)
+    if path is None:
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+    logging.info('set jinja2 template path: %s' % path)
+
     options = dict(
+        loader=FileSystemLoader(path),
         autoescape = kw.get('autoescape', True),
         block_start_string = kw.get('block_start_string', '{%'),
         block_end_string = kw.get('block_end_string', '%}'),
         variable_start_string = kw.get('variable_start_string', '{{'),
         variable_end_string = kw.get('variable_end_string', '}}'),
         auto_reload = kw.get('auto_reload', True)
+        
     )
-    path = kw.get('path', None)
-    if path is None:
-        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
-    logging.info('set jinja2 template path: %s' % path)
-    env = Environment(loader=FileSystemLoader(path), **options)
+    env = Environment(**options)
     filters = kw.get('filters', None)
     if filters is not None:
         for name, f in filters.items():
